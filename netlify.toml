@@ -8,12 +8,7 @@
 [context.production.environment]
   NODE_ENV = "production"
 
-# Form submission notifications
-[[notifications]]
-  name = "consultation-form"
-  type = "email"
-  emails = ["iraj@dynamicspro.ca", "irajmehr@yahoo.com"]
-  subject = "New Consultation Request from DynamicsPro.ca"
+# Forms are configured directly in the HTML with data-netlify attributes
 
 # Custom headers for security
 [[headers]]
