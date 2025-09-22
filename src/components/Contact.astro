@@ -93,7 +93,18 @@
           <p class="text-gray-600">Tell us about your business needs and we'll get back to you within 24 hours.</p>
         </div>
 
-        <form id="consultation-form" class="space-y-6">
+        <form
+          name="consultation"
+          method="POST"
+          data-netlify="true"
+          data-netlify-recaptcha="true"
+          action="/thank-you/"
+          class="space-y-6"
+        >
+          <input type="hidden" name="form-name" value="consultation" />
+          <input type="hidden" name="subject" value="New Consultation Request from DynamicsPro.ca" />
+          <input type="hidden" name="to" value="iraj@dynamicspro.ca" />
+          <input type="hidden" name="cc" value="irajmehr@yahoo.com" />
           <div class="grid md:grid-cols-2 gap-6">
             <div>
               <label for="company-name" class="block text-sm font-medium text-gray-700 mb-2">Company Name *</label>
@@ -191,6 +202,8 @@
             </div>
           </div>
 
+          <div data-netlify-recaptcha="true"></div>
+
           <button type="submit" class="w-full bg-primary-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-primary-700 transition-colors duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
             Schedule Free Consultation
           </button>
@@ -282,43 +295,18 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('consultation-form');
-    
+    const form = document.querySelector('form[name="consultation"]');
+
     if (form) {
       form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData);
-        
-        // Simple validation
-        if (!data['company-name'] || !data['contact-person'] || !data['email']) {
-          alert('Please fill in all required fields.');
-          return;
-        }
-        
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(data.email)) {
-          alert('Please enter a valid email address.');
-          return;
-        }
-        
-        // Simulate form submission
         const submitButton = form.querySelector('button[type="submit"]');
         const originalText = submitButton.textContent;
-        
+
         submitButton.textContent = 'Sending...';
         submitButton.disabled = true;
-        
-        // Simulate API call
-        setTimeout(() => {
-          alert('Thank you for your consultation request! We will contact you within 24 hours to schedule your free consultation.');
-          form.reset();
-          submitButton.textContent = originalText;
-          submitButton.disabled = false;
-        }, 1500);
+
+        // Let Netlify handle the actual submission
+        // This will redirect to the thank-you page automatically
       });
     }
   });

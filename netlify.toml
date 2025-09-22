@@ -1,0 +1,31 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[[forms]]
+  name = "consultation"
+
+[context.production.environment]
+  NODE_ENV = "production"
+
+# Form submission notifications
+[[notifications]]
+  name = "consultation-form"
+  type = "email"
+  emails = ["iraj@dynamicspro.ca", "irajmehr@yahoo.com"]
+  subject = "New Consultation Request from DynamicsPro.ca"
+
+# Custom headers for security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Redirect configuration for clean URLs
+[[redirects]]
+  from = "/thank-you"
+  to = "/thank-you/"
+  status = 301
